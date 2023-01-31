@@ -22,7 +22,7 @@ bool LinearBlendNode::Process(float dt)
     {
         if (inputs[0] && inputs[1])
         {
-            output.Linear2PoseBlend(inputs[0]->output, inputs[1]->output, blendValue); //is the bad belnd rn for running and walking
+            output.Linear2PoseBlend(inputs[0]->output, inputs[1]->output, blendValue);
             temp->UpdateBoneMatrices(output);
             return true;
         }

@@ -221,6 +221,7 @@
     <ClCompile Include="AnimatedSkeleton.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="BlendNode.cpp" />
+    <ClCompile Include="BoneModifier.cpp" />
     <ClCompile Include="ClipNode.cpp" />
     <ClCompile Include="LinearBlendNode.cpp" />
     <ClCompile Include="LinearWalkRunBlend.cpp" />
@@ -237,6 +238,7 @@
     <ClInclude Include="AnimatedSkeleton.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="BlendNode.h" />
+    <ClInclude Include="BoneModifier.h" />
     <ClInclude Include="ClipNode.h" />
     <ClInclude Include="LinearBlendNode.h" />
     <ClInclude Include="LinearWalkRunBlend.h" />

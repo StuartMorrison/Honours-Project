@@ -251,6 +251,10 @@ bool AnimatedMeshApp::Update(float frame_time)
 
 		node_manager_.output_nodes_[0]->Update(frame_time);
 		player_->UpdateBoneMatrices(node_manager_.output_nodes_[0]->output);
+		gef::Vector4 bone = player_->bone_matrices()[6].GetTranslation();
+		gef::Vector4 mod = gef::Vector4(0.f, 10.f, 10.f);
+		gef::Vector4 combo = bone + mod;
+		player_->bone_matrices()[6].SetTranslation(combo);
 		
 	}
 

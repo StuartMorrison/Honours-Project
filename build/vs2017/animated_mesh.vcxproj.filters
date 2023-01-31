@@ -63,6 +63,9 @@
     <ClCompile Include="vertex_colour_unlit_shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BoneModifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\motion_clip_player.h">
@@ -105,6 +108,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vertex_colour_unlit_shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneModifier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
