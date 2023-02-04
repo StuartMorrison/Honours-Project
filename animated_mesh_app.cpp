@@ -148,7 +148,6 @@ bool AnimatedMeshApp::Update(float frame_time)
 {
 	fps_ = 1.0f / frame_time;
 
-
 	// read input devices
 	if (input_manager_)
 	{
@@ -252,6 +251,7 @@ bool AnimatedMeshApp::Update(float frame_time)
 		node_manager_.output_nodes_[0]->Update(frame_time);
 		player_->UpdateBoneMatrices(node_manager_.output_nodes_[0]->output);
 		//put change emotion function here
+
 	}
 
 	// build a transformation matrix that will position the character
@@ -261,7 +261,6 @@ bool AnimatedMeshApp::Update(float frame_time)
 		gef::Matrix44 player_transform;
 		player_transform.SetIdentity();
 		player_transform.Scale(gef::Vector4(0.01f, 0.01f, 0.01f));
-		//player_transform.RotationX(-1.503f);
 		player_->set_transform(player_transform);
 	}
 
