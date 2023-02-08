@@ -249,6 +249,7 @@ bool AnimatedMeshApp::Update(float frame_time)
 		}
 
 		node_manager_.output_nodes_[0]->Update(frame_time);
+		//LOOK HERE can alter the skeleton from the output node to get what I want? try this later
 		player_->UpdateBoneMatrices(node_manager_.output_nodes_[0]->output);
 		//put change emotion function here
 
