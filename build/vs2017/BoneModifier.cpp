@@ -15,58 +15,58 @@ void BoneModifier::Init(gef::SkinnedMeshInstance* player_)
 {
 	player_pointer_ = player_;
 
-	bone_name_number_.emplace("hips", 0);               //add 1 to all index positions when using as root was excluded
-	bone_name_number_.emplace("leftUpperLeg", 1);
-	bone_name_number_.emplace("rightUpperLeg", 2);
-	bone_name_number_.emplace("torso", 3);
-	bone_name_number_.emplace("leftLowerLeg", 4);
-	bone_name_number_.emplace("leftHeel", 5);
-	bone_name_number_.emplace("leftToes", 6);
-	bone_name_number_.emplace("rightLowerLeg", 7);
-	bone_name_number_.emplace("rightHeel", 8);
-	bone_name_number_.emplace("rightToes", 9);
-	bone_name_number_.emplace("lowerChest", 10);
-	bone_name_number_.emplace("upperChest", 11);
-	bone_name_number_.emplace("leftShoulder", 12);
-	bone_name_number_.emplace("neck", 13);
-	bone_name_number_.emplace("rightShoulder", 14);
-	bone_name_number_.emplace("leftUpperArm", 15);
-	bone_name_number_.emplace("leftLowerArm", 16);
-	bone_name_number_.emplace("leftHand", 17);
-	bone_name_number_.emplace("leftIndexBase", 18);
-	bone_name_number_.emplace("leftMiddleBase", 19);
-	bone_name_number_.emplace("leftPinkyBase", 20);
-	bone_name_number_.emplace("leftRingBase", 21);
-	bone_name_number_.emplace("leftThumbBase", 22);
-	bone_name_number_.emplace("leftIndexJoint", 23);
-	bone_name_number_.emplace("leftIndexTip", 24);
-	bone_name_number_.emplace("leftMiddleJoint", 25);
-	bone_name_number_.emplace("leftMiddleTip", 26);
-	bone_name_number_.emplace("leftPinkyJoint", 27);
-	bone_name_number_.emplace("leftPinkyTip", 28);
-	bone_name_number_.emplace("leftRingJoint", 29);
-	bone_name_number_.emplace("leftRingTip", 30);
-	bone_name_number_.emplace("leftThumbJoint", 31);
-	bone_name_number_.emplace("leftThumbTip", 32);
-	bone_name_number_.emplace("head", 33);
-	bone_name_number_.emplace("rightUpperArm", 34);
-	bone_name_number_.emplace("rightLowerArm", 35);
-	bone_name_number_.emplace("rightHand", 36);
-	bone_name_number_.emplace("rightIndexBase", 37);
-	bone_name_number_.emplace("rightMiddleBase", 38);
-	bone_name_number_.emplace("rightPinkyBase", 39);
-	bone_name_number_.emplace("rightRingBase", 40);
-	bone_name_number_.emplace("rightThumbBase", 41);
-	bone_name_number_.emplace("rightIndexJoint", 42);
-	bone_name_number_.emplace("rightIndexTip", 43);
-	bone_name_number_.emplace("rightMiddleJoint", 44);
-	bone_name_number_.emplace("rightMiddleTip", 45);
-	bone_name_number_.emplace("rightPinkyJoint", 46);
-	bone_name_number_.emplace("rightPinkyTip", 47);
-	bone_name_number_.emplace("rightRingJoint", 48);
-	bone_name_number_.emplace("rightRingTip", 49);
-	bone_name_number_.emplace("rightThumbJoint", 50);
-	bone_name_number_.emplace("rightThumbTip", 51);
+	bone_name_number_.emplace(0, "hips");               //add 1 to all index positions when using as root was excluded
+	bone_name_number_.emplace(1, "leftUpperLeg");
+	bone_name_number_.emplace(2, "rightUpperLeg");
+	bone_name_number_.emplace(3, "torso");
+	bone_name_number_.emplace(4, "leftLowerLeg");
+	bone_name_number_.emplace(5, "leftHeel");
+	bone_name_number_.emplace(6, "leftToes");
+	bone_name_number_.emplace(7, "rightLowerLeg");
+	bone_name_number_.emplace(8, "rightHeel");
+	bone_name_number_.emplace(9, "rightToes");
+	bone_name_number_.emplace(10, "lowerChest");
+	bone_name_number_.emplace(11, "upperChest");
+	bone_name_number_.emplace(12, "leftShoulder");
+	bone_name_number_.emplace(13, "neck");
+	bone_name_number_.emplace(14, "rightShoulder");
+	bone_name_number_.emplace(15, "leftUpperArm");
+	bone_name_number_.emplace(16, "leftLowerArm");
+	bone_name_number_.emplace(17, "leftHand");
+	bone_name_number_.emplace(18, "leftIndexBase");
+	bone_name_number_.emplace(19, "leftMiddleBase");
+	bone_name_number_.emplace(20, "leftPinkyBase");
+	bone_name_number_.emplace(21, "leftRingBase");
+	bone_name_number_.emplace(22, "leftThumbBase");
+	bone_name_number_.emplace(23, "leftIndexJoint");
+	bone_name_number_.emplace(24, "leftIndexTip");
+	bone_name_number_.emplace(25, "leftMiddleJoint");
+	bone_name_number_.emplace(26, "leftMiddleTip");
+	bone_name_number_.emplace(27, "leftPinkyJoint");
+	bone_name_number_.emplace(28, "leftPinkyTip");
+	bone_name_number_.emplace(29, "leftRingJoint");
+	bone_name_number_.emplace(30, "leftRingTip");
+	bone_name_number_.emplace(31, "leftThumbJoint");
+	bone_name_number_.emplace(32, "leftThumbTip");
+	bone_name_number_.emplace(33, "head");
+	bone_name_number_.emplace(34, "rightUpperArm");
+	bone_name_number_.emplace(35, "rightLowerArm");
+	bone_name_number_.emplace(36, "rightHand");
+	bone_name_number_.emplace(37, "rightIndexBase");
+	bone_name_number_.emplace(38, "rightMiddleBase");
+	bone_name_number_.emplace(39, "rightPinkyBase");
+	bone_name_number_.emplace(40, "rightRingBase");
+	bone_name_number_.emplace(41, "rightThumbBase");
+	bone_name_number_.emplace(42, "rightIndexJoint");
+	bone_name_number_.emplace(43, "rightIndexTip");
+	bone_name_number_.emplace(44, "rightMiddleJoint");
+	bone_name_number_.emplace(45, "rightMiddleTip");
+	bone_name_number_.emplace(46, "rightPinkyJoint");
+	bone_name_number_.emplace(47, "rightPinkyTip");
+	bone_name_number_.emplace(48, "rightRingJoint");
+	bone_name_number_.emplace(49, "rightRingTip");
+	bone_name_number_.emplace(50, "rightThumbJoint");
+	bone_name_number_.emplace(51, "rightThumbTip");
 }
 
 void BoneModifier::ChangeEmotion(int input)
@@ -85,9 +85,9 @@ void BoneModifier::ChangeEmotion(int input)
 	}
 }
 
-void BoneModifier::ModifyBones(std::string bone_name_, gef::Vector4 translation, gef::Vector4 rotation, gef::Vector4 scale)
+void BoneModifier::ModifyBones(int bone_index_, gef::Vector4 translation, gef::Vector4 rotation, gef::Vector4 scale)
 {
-	int index = bone_name_number_.at(bone_name_);
+	int index = bone_index_ + 1;
 	gef::Matrix44 originalValues = player_pointer_->bone_matrices()[index];
 	gef::Matrix44 modifyValues;
 	gef::Quaternion modifyRotation;

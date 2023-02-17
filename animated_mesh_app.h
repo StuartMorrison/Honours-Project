@@ -16,6 +16,8 @@
 #include "ClipNode.h"
 #include "LinearBlendNode.h"
 
+#include "BoneModifier.h"
+
 #include "primitive_builder.h"
 #include "primitive_renderer.h"
 
@@ -91,6 +93,9 @@ private:
 	float run_speed_min, run_speed_max;
 	bool isRunning = false;
 	NodeManager node_manager_;
+
+	BoneModifier bone_modifier_;
+	int bone_index_;
 
 	/*OutputNode output_node_;
 	ClipNode clip_node_;

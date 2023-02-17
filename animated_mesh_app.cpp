@@ -106,6 +106,9 @@ void AnimatedMeshApp::Init()
 	//node_manager_.linear_blend_nodes_[0]->SetInput(0, node_manager_.clip_nodes_[0]);
 	//node_manager_.linear_blend_nodes_[0]->SetInput(1, node_manager_.clip_nodes_[1]);
 
+	bone_modifier_.Init(player_);
+	bone_index_ = 0;
+
 	primitive_builder_ = new PrimitiveBuilder(platform_);
 	primitive_renderer_ = new PrimitiveRenderer(platform_);
 }
@@ -163,6 +166,22 @@ bool AnimatedMeshApp::Update(float frame_time)
 		gef::Keyboard* keyboard = input_manager_->keyboard();
 		if (keyboard)
 		{
+			if (keyboard->IsKeyPressed(gef::Keyboard::KC_LEFT))
+			{
+				if (bone_index_ != 0)
+				{
+					bone_index_--;
+				}
+			}
+
+			if (keyboard->IsKeyPressed(gef::Keyboard::KC_RIGHT))
+			{
+				if (bone_index_ != 51)
+				{
+					bone_index_++;
+				}
+			}
+
 			/*if (keyboard->IsKeyPressed(gef::Keyboard::KC_SPACE))
 			{
 				anim_manager_.SwitchAnimation(true);
@@ -322,6 +341,7 @@ void AnimatedMeshApp::DrawHUD()
 	{
 		// display frame rate
 		font_->RenderText(sprite_renderer_, gef::Vector4(850.0f, 510.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT, "FPS: %.1f", fps_);
+		font_->RenderText(sprite_renderer_, gef::Vector4(0.0f, 510.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT, bone_modifier_.GetMap(bone_index_).c_str());
 	}
 }
 
