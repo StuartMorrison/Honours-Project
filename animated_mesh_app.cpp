@@ -76,8 +76,8 @@ void AnimatedMeshApp::Init()
 		anim_player_.set_anim_time(0.0f);
 	}
 
-	run_anim_ = LoadAnimation("xbot/xbot@running_inplace.scn", "");
-	idle_anim_ = LoadAnimation("xbot/xbot@idle.scn", "");
+//	run_anim_ = LoadAnimation("xbot/xbot@running_inplace.scn", "");
+	//idle_anim_ = LoadAnimation("xbot/xbot@idle.scn", "");
 
 	/*output_node_.init(player_->bind_pose());
 	clip_node_.init(player_->bind_pose());
@@ -89,22 +89,22 @@ void AnimatedMeshApp::Init()
 	linear_blend_node_.SetInput(1, &clip_node_2);
 	output_node_.SetInput(0, &linear_blend_node_);*/
 
-	walk_speed_min = 1.f;
-	walk_speed_max = walk_anim_->duration() / run_anim_->duration();
+	//walk_speed_min = 1.f;
+	//walk_speed_max = walk_anim_->duration() / run_anim_->duration();
 
-	run_speed_min = run_anim_->duration() / walk_anim_->duration();
-	run_speed_max = 1.f;
+	//run_speed_min = run_anim_->duration() / walk_anim_->duration();
+	//run_speed_max = 1.f;
 
 	node_manager_.init(player_);
 	node_manager_.NewOutputNode();
-	node_manager_.NewLinearBlendNode();
-	node_manager_.NewClipNode(idle_anim_);
+	//node_manager_.NewLinearBlendNode();
+	//node_manager_.NewClipNode(idle_anim_);
 	node_manager_.NewClipNode(walk_anim_);
-	node_manager_.NewClipNode(run_anim_);
+	//node_manager_.NewClipNode(run_anim_);
 
-	node_manager_.output_nodes_[0]->SetInput(0, node_manager_.linear_blend_nodes_[0]);
-	node_manager_.linear_blend_nodes_[0]->SetInput(0, node_manager_.clip_nodes_[0]);
-	node_manager_.linear_blend_nodes_[0]->SetInput(1, node_manager_.clip_nodes_[1]);
+	node_manager_.output_nodes_[0]->SetInput(0, node_manager_.clip_nodes_[0]);
+	//node_manager_.linear_blend_nodes_[0]->SetInput(0, node_manager_.clip_nodes_[0]);
+	//node_manager_.linear_blend_nodes_[0]->SetInput(1, node_manager_.clip_nodes_[1]);
 
 	primitive_builder_ = new PrimitiveBuilder(platform_);
 	primitive_renderer_ = new PrimitiveRenderer(platform_);
@@ -184,28 +184,28 @@ bool AnimatedMeshApp::Update(float frame_time)
 				}
 			}*/
 
-			if (keyboard->IsKeyPressed(gef::Keyboard::KC_Z))
-			{
-				if (speed_ >= 1.0f && speed_ <= 1.1f)
-				{
-					node_manager_.linear_blend_nodes_[0]->SetInput(0, node_manager_.clip_nodes_[1]);
-					node_manager_.linear_blend_nodes_[0]->SetInput(1, node_manager_.clip_nodes_[2]);
-					//node_manager_.clip_nodes_[1]->animTime = node_manager_.clip_nodes_[0]->animTime;
+			//if (keyboard->IsKeyPressed(gef::Keyboard::KC_Z))
+			//{
+			//	if (speed_ >= 1.0f && speed_ <= 1.1f)
+			//	{
+			//		node_manager_.linear_blend_nodes_[0]->SetInput(0, node_manager_.clip_nodes_[1]);
+			//		node_manager_.linear_blend_nodes_[0]->SetInput(1, node_manager_.clip_nodes_[2]);
+			//		//node_manager_.clip_nodes_[1]->animTime = node_manager_.clip_nodes_[0]->animTime;
 
-					isRunning = true;
-				}
+			//		isRunning = true;
+			//	}
 
-				if (speed_ >= run_speed_)
-				{
-					speed_ = run_speed_;
-				}
-				else
-				{
-					speed_ = speed_ + 0.1f;
-				}
-			}
+			//	if (speed_ >= run_speed_)
+			//	{
+			//		speed_ = run_speed_;
+			//	}
+			//	else
+			//	{
+			//		speed_ = speed_ + 0.1f;
+			//	}
+			//}
 
-			if (keyboard->IsKeyPressed(gef::Keyboard::KC_X))
+			/*if (keyboard->IsKeyPressed(gef::Keyboard::KC_X))
 			{
 				if (speed_ <= 1.1f && speed_ >= 1.0f)
 				{
@@ -223,7 +223,7 @@ bool AnimatedMeshApp::Update(float frame_time)
 				{
 					speed_ = speed_ - 0.1f;
 				}
-			}
+			}*/
 
 		}
 	}
@@ -237,16 +237,16 @@ bool AnimatedMeshApp::Update(float frame_time)
 		// from the newly updated pose in the anim player
 		//player_->UpdateBoneMatrices(anim_player_.pose());
 		//output_node_.Update(frame_time);
-		node_manager_.linear_blend_nodes_[0]->blendValue = speed_;
+		//node_manager_.linear_blend_nodes_[0]->blendValue = speed_;
 
-		if (isRunning)
+		/*if (isRunning)
 		{
 			node_manager_.linear_blend_nodes_[0]->blendValue = (node_manager_.linear_blend_nodes_[0]->blendValue - 1.f) / (3.f - 1.f);
 			float walk_speed_mod = (walk_speed_max - walk_speed_min) * node_manager_.linear_blend_nodes_[0]->blendValue;
 			float run_speed_mod = (run_speed_max - run_speed_min) * node_manager_.linear_blend_nodes_[0]->blendValue;
 			node_manager_.clip_nodes_[1]->playbackSpeed = (walk_speed_min + walk_speed_mod);
 			node_manager_.clip_nodes_[2]->playbackSpeed = (run_speed_min + run_speed_mod);
-		}
+		}*/
 
 		node_manager_.output_nodes_[0]->Update(frame_time);
 
