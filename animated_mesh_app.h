@@ -94,8 +94,12 @@ private:
 	bool isRunning = false;
 	NodeManager node_manager_;
 
+	//DEMO
 	BoneModifier bone_modifier_;
 	int bone_index_;
+
+	bool translation_selected_;
+	bool rotation_selected_;
 
 	/*OutputNode output_node_;
 	ClipNode clip_node_;

@@ -109,6 +109,9 @@ void AnimatedMeshApp::Init()
 	bone_modifier_.Init(player_);
 	bone_index_ = 0;
 
+	translation_selected_ = true;
+	rotation_selected_ = false;
+
 	primitive_builder_ = new PrimitiveBuilder(platform_);
 	primitive_renderer_ = new PrimitiveRenderer(platform_);
 }
@@ -179,6 +182,57 @@ bool AnimatedMeshApp::Update(float frame_time)
 				if (bone_index_ != 51)
 				{
 					bone_index_++;
+				}
+			}
+
+			if (keyboard->IsKeyPressed(gef::Keyboard::KC_T))
+			{
+				translation_selected_ = true;
+				rotation_selected_ = false;
+			}
+
+			if (keyboard->IsKeyPressed(gef::Keyboard::KC_R))
+			{
+				rotation_selected_ = true;
+				translation_selected_ = false;
+			}
+
+			if (keyboard->IsKeyDown(gef::Keyboard::KC_X))
+			{
+				if (translation_selected_)
+				{
+
+				}
+
+				if (rotation_selected_)
+				{
+
+				}
+			}
+
+			if (keyboard->IsKeyDown(gef::Keyboard::KC_Y))
+			{
+				if (translation_selected_)
+				{
+
+				}
+
+				if (rotation_selected_)
+				{
+
+				}
+			}
+
+			if (keyboard->IsKeyDown(gef::Keyboard::KC_Z))
+			{
+				if (translation_selected_)
+				{
+
+				}
+
+				if (rotation_selected_)
+				{
+
 				}
 			}
 
