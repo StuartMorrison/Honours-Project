@@ -403,8 +403,12 @@ bool AnimatedMeshApp::Update(float frame_time)
 		//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_scale(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].scale() - gef::Vector4(modifyRotation.x, modifyRotation.x, modifyRotation.x));
 		//modifyRotation.Normalise();
 
-		modifyValues.Scale(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].scale());
-		modifyValues.Rotation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].rotation() + modifyRotation);
+		modifyValues.SetIdentity();
+		//modifyValues.Scale(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].scale());
+		modifyValues.Scale(gef::Vector4(1.0f, 1.0f, 1.0f));
+		gef::Quaternion temp = node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].rotation() + modifyRotation;
+		temp.Normalise();                                                                                                                        //FIX, NEEDS NORMALISED
+		modifyValues.Rotation(temp);
 		modifyValues.SetTranslation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].translation() + modifyTranslation);
 
 		//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_rotation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].rotation() + modifyRotation);
