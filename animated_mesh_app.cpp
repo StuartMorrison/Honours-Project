@@ -109,8 +109,16 @@ void AnimatedMeshApp::Init()
 	bone_modifier_.Init(player_);
 	bone_index_ = 0;
 
-	translation_selected_ = true;
+	translation_selected_ = false;
 	rotation_selected_ = false;
+
+	originalValues.SetIdentity();
+	modifyValues.SetIdentity();
+
+	modifyRotation.x = 0.0f;
+	modifyRotation.y = 0.0f;
+	modifyRotation.z = 0.0f;
+	modifyRotation.w = 0.0f;
 
 	primitive_builder_ = new PrimitiveBuilder(platform_);
 	primitive_renderer_ = new PrimitiveRenderer(platform_);
@@ -173,6 +181,7 @@ bool AnimatedMeshApp::Update(float frame_time)
 			{
 				if (bone_index_ != 0)
 				{
+					//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_] = originalValues;
 					bone_index_--;
 				}
 			}
@@ -181,6 +190,7 @@ bool AnimatedMeshApp::Update(float frame_time)
 			{
 				if (bone_index_ != 51)
 				{
+					//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_] = originalValues;
 					bone_index_++;
 				}
 			}
@@ -189,12 +199,18 @@ bool AnimatedMeshApp::Update(float frame_time)
 			{
 				translation_selected_ = true;
 				rotation_selected_ = false;
+
+				originalValues = node_manager_.output_nodes_[0]->output.local_pose()[bone_index_].GetMatrix();
+				modifyValues.SetIdentity();
 			}
 
 			if (keyboard->IsKeyPressed(gef::Keyboard::KC_R))
 			{
 				rotation_selected_ = true;
 				translation_selected_ = false;
+
+				originalValues = node_manager_.output_nodes_[0]->output.local_pose()[bone_index_].GetMatrix();
+				modifyValues.SetIdentity();
 			}
 
 			if (keyboard->IsKeyDown(gef::Keyboard::KC_X))
@@ -206,7 +222,15 @@ bool AnimatedMeshApp::Update(float frame_time)
 
 				if (rotation_selected_)
 				{
+					if (keyboard->IsKeyPressed(gef::Keyboard::KC_EQUALS))
+					{
+						modifyRotation.x += 0.01;
+					}
 
+					if (keyboard->IsKeyPressed(gef::Keyboard::KC_MINUS))
+					{
+						modifyRotation.x -= 0.01;
+					}
 				}
 			}
 
@@ -219,7 +243,15 @@ bool AnimatedMeshApp::Update(float frame_time)
 
 				if (rotation_selected_)
 				{
+					if (keyboard->IsKeyPressed(gef::Keyboard::KC_EQUALS))
+					{
+						modifyRotation.y++;
+					}
 
+					if (keyboard->IsKeyPressed(gef::Keyboard::KC_MINUS))
+					{
+						modifyRotation.y--;
+					}
 				}
 			}
 
@@ -232,7 +264,15 @@ bool AnimatedMeshApp::Update(float frame_time)
 
 				if (rotation_selected_)
 				{
+					if (keyboard->IsKeyPressed(gef::Keyboard::KC_EQUALS))
+					{
+						modifyRotation.z++;
+					}
 
+					if (keyboard->IsKeyPressed(gef::Keyboard::KC_MINUS))
+					{
+						modifyRotation.z--;
+					}
 				}
 			}
 
@@ -327,6 +367,13 @@ bool AnimatedMeshApp::Update(float frame_time)
 		//node_manager_.output_nodes_[0]->output.local_pose()[16].set_translation(gef::Vector4(0.0f, 50.0f, 8.0f));
 		//node_manager_.output_nodes_[0]->output.CalculateGlobalPose();
 
+		/*modifyValues.Scale(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].scale());
+		modifyValues.Rotation(modifyRotation);
+		modifyValues.SetTranslation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].translation());*/
+
+		//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_scale(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].scale() - gef::Vector4(modifyRotation.x, modifyRotation.x, modifyRotation.x));
+		node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_rotation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].rotation() + modifyRotation);
+		node_manager_.output_nodes_[0]->output.CalculateGlobalPose();
 
 		player_->UpdateBoneMatrices(node_manager_.output_nodes_[0]->output);
 		//put change emotion function here

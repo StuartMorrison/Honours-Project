@@ -101,6 +101,10 @@ private:
 	bool translation_selected_;
 	bool rotation_selected_;
 
+	gef::Matrix44 originalValues;
+	gef::Matrix44 modifyValues;
+	gef::Quaternion modifyRotation;
+
 	/*OutputNode output_node_;
 	ClipNode clip_node_;
 	ClipNode clip_node_2;
