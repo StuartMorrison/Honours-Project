@@ -402,8 +402,16 @@ bool AnimatedMeshApp::Update(float frame_time)
 
 		//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_scale(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].scale() - gef::Vector4(modifyRotation.x, modifyRotation.x, modifyRotation.x));
 		//modifyRotation.Normalise();
-		node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_rotation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].rotation() + modifyRotation);
-		node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_translation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].translation() + modifyTranslation);
+
+		modifyValues.Scale(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].scale());
+		modifyValues.Rotation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].rotation() + modifyRotation);
+		modifyValues.SetTranslation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].translation() + modifyTranslation);
+
+		//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_rotation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].rotation() + modifyRotation);
+		//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_translation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].translation() + modifyTranslation);
+
+		node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1] = modifyValues;
+
 		node_manager_.output_nodes_[0]->output.CalculateGlobalPose();
 
 		player_->UpdateBoneMatrices(node_manager_.output_nodes_[0]->output);
