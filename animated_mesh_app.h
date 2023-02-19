@@ -103,6 +103,7 @@ private:
 
 	gef::Matrix44 originalValues;
 	gef::Matrix44 modifyValues;
+	gef::Vector4 modifyTranslation;
 	gef::Quaternion modifyRotation;
 
 	/*OutputNode output_node_;

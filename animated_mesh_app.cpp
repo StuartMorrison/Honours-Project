@@ -115,6 +115,11 @@ void AnimatedMeshApp::Init()
 	originalValues.SetIdentity();
 	modifyValues.SetIdentity();
 
+	modifyTranslation.set_x(0.0f);
+	modifyTranslation.set_y(0.0f);
+	modifyTranslation.set_z(0.0f);
+	modifyTranslation.set_w(0.0f);
+
 	modifyRotation.x = 0.0f;
 	modifyRotation.y = 0.0f;
 	modifyRotation.z = 0.0f;
@@ -217,7 +222,15 @@ bool AnimatedMeshApp::Update(float frame_time)
 			{
 				if (translation_selected_)
 				{
+					if (keyboard->IsKeyPressed(gef::Keyboard::KC_EQUALS))
+					{
+						modifyTranslation.set_x(modifyTranslation.x() + 1.0f);
+					}
 
+					if (keyboard->IsKeyPressed(gef::Keyboard::KC_MINUS))
+					{
+						modifyTranslation.set_x(modifyTranslation.x() - 1.0f);
+					}
 				}
 
 				if (rotation_selected_)
@@ -238,7 +251,15 @@ bool AnimatedMeshApp::Update(float frame_time)
 			{
 				if (translation_selected_)
 				{
+					if (keyboard->IsKeyPressed(gef::Keyboard::KC_EQUALS))
+					{
+						modifyTranslation.set_y(modifyTranslation.y() + 1.0f);
+					}
 
+					if (keyboard->IsKeyPressed(gef::Keyboard::KC_MINUS))
+					{
+						modifyTranslation.set_y(modifyTranslation.y() - 1.0f);
+					}
 				}
 
 				if (rotation_selected_)
@@ -259,7 +280,15 @@ bool AnimatedMeshApp::Update(float frame_time)
 			{
 				if (translation_selected_)
 				{
+					if (keyboard->IsKeyPressed(gef::Keyboard::KC_EQUALS))
+					{
+						modifyTranslation.set_z(modifyTranslation.z() + 1.0f);
+					}
 
+					if (keyboard->IsKeyPressed(gef::Keyboard::KC_MINUS))
+					{
+						modifyTranslation.set_z(modifyTranslation.z() - 1.0f);
+					}
 				}
 
 				if (rotation_selected_)
@@ -372,7 +401,9 @@ bool AnimatedMeshApp::Update(float frame_time)
 		modifyValues.SetTranslation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].translation());*/
 
 		//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_scale(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].scale() - gef::Vector4(modifyRotation.x, modifyRotation.x, modifyRotation.x));
+		//modifyRotation.Normalise();
 		node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_rotation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].rotation() + modifyRotation);
+		node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_translation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].translation() + modifyTranslation);
 		node_manager_.output_nodes_[0]->output.CalculateGlobalPose();
 
 		player_->UpdateBoneMatrices(node_manager_.output_nodes_[0]->output);
