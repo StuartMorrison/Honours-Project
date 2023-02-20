@@ -101,6 +101,7 @@ gef::Matrix44 BoneModifier::ModifyBones(gef::Matrix44 originalValues, gef::Quate
 
 	gef::Matrix44 modifyValues;
 	gef::Quaternion modifyRotation;
+	modifyValues.SetIdentity();
 	modifyValues.Scale(originalValues.GetScale());
 	modifyRotation = originalRotation + gef::Quaternion(rotation.x(), rotation.y(), rotation.z(), 0.0f);
 	modifyRotation.Normalise();
