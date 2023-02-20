@@ -85,9 +85,9 @@ void BoneModifier::ChangeEmotion(int input)
 	}
 }
 
-void BoneModifier::ModifyBones(int bone_index_, gef::Vector4 translation, gef::Vector4 rotation, gef::Vector4 scale)
+gef::Matrix44 BoneModifier::ModifyBones(gef::Matrix44 originalValues, gef::Quaternion originalRotation, gef::Vector4 translation, gef::Vector4 rotation, gef::Vector4 scale)
 {
-	int index = bone_index_ + 1;
+	/*int index = bone_index_ + 1;
 	gef::Matrix44 originalValues = player_pointer_->bone_matrices()[index];
 	gef::Matrix44 modifyValues;
 	gef::Quaternion modifyRotation;
@@ -97,5 +97,16 @@ void BoneModifier::ModifyBones(int bone_index_, gef::Vector4 translation, gef::V
 	modifyValues.Rotation(modifyRotation);
 	modifyValues.SetTranslation(translation);
 
-	player_pointer_->bone_matrices()[index] = originalValues * modifyValues;
+	player_pointer_->bone_matrices()[index] = originalValues * modifyValues;*/
+
+	gef::Matrix44 modifyValues;
+	gef::Quaternion modifyRotation;
+	modifyValues.Scale(originalValues.GetScale());
+	modifyRotation = originalRotation + gef::Quaternion(rotation.x(), rotation.y(), rotation.z(), 0.0f);
+	modifyRotation.Normalise();
+	modifyValues.Rotation(modifyRotation);
+	modifyValues.SetTranslation(originalValues.GetTranslation() + translation);
+
+	return modifyValues;
+	
 }

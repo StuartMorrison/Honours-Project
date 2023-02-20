@@ -20,7 +20,7 @@ public:
 	void Init(gef::SkinnedMeshInstance* player_);
 	void ChangeEmotion(int input);
 	std::string GetMap(int index) { return bone_name_number_.at(index); };
-	void ModifyBones(int bone_index_, gef::Vector4 translation, gef::Vector4 rotation, gef::Vector4 scale);
+	gef::Matrix44 ModifyBones(gef::Matrix44 originalMatrix, gef::Quaternion originalRotation, gef::Vector4 translation, gef::Vector4 rotation, gef::Vector4 scale);
 	void HappyInit();
 	void SadInit();
 	void AngryInit();
