@@ -222,12 +222,12 @@ bool AnimatedMeshApp::Update(float frame_time)
 			{
 				if (translation_selected_)
 				{
-					if (keyboard->IsKeyPressed(gef::Keyboard::KC_EQUALS))
+					if (keyboard->IsKeyDown(gef::Keyboard::KC_EQUALS))
 					{
 						modifyTranslation.set_x(modifyTranslation.x() + 1.0f);
 					}
 
-					if (keyboard->IsKeyPressed(gef::Keyboard::KC_MINUS))
+					if (keyboard->IsKeyDown(gef::Keyboard::KC_MINUS))
 					{
 						modifyTranslation.set_x(modifyTranslation.x() - 1.0f);
 					}
@@ -235,14 +235,14 @@ bool AnimatedMeshApp::Update(float frame_time)
 
 				if (rotation_selected_)
 				{
-					if (keyboard->IsKeyPressed(gef::Keyboard::KC_EQUALS))
+					if (keyboard->IsKeyDown(gef::Keyboard::KC_EQUALS))
 					{
 						modifyRotation.x += 0.1;
 					}
 
-					if (keyboard->IsKeyPressed(gef::Keyboard::KC_MINUS))
+					if (keyboard->IsKeyDown(gef::Keyboard::KC_MINUS))
 					{
-						modifyRotation.x -= 0.11;
+						modifyRotation.x -= 0.1;
 					}
 				}
 			}
@@ -251,12 +251,12 @@ bool AnimatedMeshApp::Update(float frame_time)
 			{
 				if (translation_selected_)
 				{
-					if (keyboard->IsKeyPressed(gef::Keyboard::KC_EQUALS))
+					if (keyboard->IsKeyDown(gef::Keyboard::KC_EQUALS))
 					{
 						modifyTranslation.set_y(modifyTranslation.y() + 1.0f);
 					}
 
-					if (keyboard->IsKeyPressed(gef::Keyboard::KC_MINUS))
+					if (keyboard->IsKeyDown(gef::Keyboard::KC_MINUS))
 					{
 						modifyTranslation.set_y(modifyTranslation.y() - 1.0f);
 					}
@@ -264,12 +264,12 @@ bool AnimatedMeshApp::Update(float frame_time)
 
 				if (rotation_selected_)
 				{
-					if (keyboard->IsKeyPressed(gef::Keyboard::KC_EQUALS))
+					if (keyboard->IsKeyDown(gef::Keyboard::KC_EQUALS))
 					{
 						modifyRotation.y += 0.1;
 					}
 
-					if (keyboard->IsKeyPressed(gef::Keyboard::KC_MINUS))
+					if (keyboard->IsKeyDown(gef::Keyboard::KC_MINUS))
 					{
 						modifyRotation.y -= 0.1;
 					}
@@ -280,12 +280,12 @@ bool AnimatedMeshApp::Update(float frame_time)
 			{
 				if (translation_selected_)
 				{
-					if (keyboard->IsKeyPressed(gef::Keyboard::KC_EQUALS))
+					if (keyboard->IsKeyDown(gef::Keyboard::KC_EQUALS))
 					{
 						modifyTranslation.set_z(modifyTranslation.z() + 1.0f);
 					}
 
-					if (keyboard->IsKeyPressed(gef::Keyboard::KC_MINUS))
+					if (keyboard->IsKeyDown(gef::Keyboard::KC_MINUS))
 					{
 						modifyTranslation.set_z(modifyTranslation.z() - 1.0f);
 					}
@@ -293,12 +293,12 @@ bool AnimatedMeshApp::Update(float frame_time)
 
 				if (rotation_selected_)
 				{
-					if (keyboard->IsKeyPressed(gef::Keyboard::KC_EQUALS))
+					if (keyboard->IsKeyDown(gef::Keyboard::KC_EQUALS))
 					{
 						modifyRotation.z =+ 0.1;
 					}
 
-					if (keyboard->IsKeyPressed(gef::Keyboard::KC_MINUS))
+					if (keyboard->IsKeyDown(gef::Keyboard::KC_MINUS))
 					{
 						modifyRotation.z -= 0.1;
 					}
