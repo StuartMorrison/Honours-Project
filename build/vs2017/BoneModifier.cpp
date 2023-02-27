@@ -85,6 +85,11 @@ void BoneModifier::ChangeEmotion(int input)
 	}
 }
 
+int BoneModifier::GetEmotion()
+{
+	return emotion_number_;
+}
+
 gef::Matrix44 BoneModifier::ModifyBones(gef::Matrix44 originalValues, gef::Quaternion originalRotation, gef::Vector4 translation, gef::Vector4 rotation, gef::Vector4 scale)
 {
 	/*int index = bone_index_ + 1;
@@ -110,4 +115,19 @@ gef::Matrix44 BoneModifier::ModifyBones(gef::Matrix44 originalValues, gef::Quate
 
 	return modifyValues;
 	
+}
+
+gef::Matrix44 BoneModifier::ModifyRotation(gef::Matrix44 originalMatrix, gef::Quaternion originalRotation, float scalarMultiplier)
+{
+	gef::Matrix44 modifiedMatrix;
+	gef::Quaternion modifiedRotation;
+
+	modifiedMatrix.SetIdentity();
+	modifiedMatrix.Scale(originalMatrix.GetScale());
+	modifiedRotation = originalRotation * scalarMultiplier;
+	modifiedRotation.Normalise();
+	modifiedMatrix.Rotation(modifiedRotation);
+	modifiedMatrix.SetTranslation(originalMatrix.GetTranslation());
+
+	return modifiedMatrix;
 }

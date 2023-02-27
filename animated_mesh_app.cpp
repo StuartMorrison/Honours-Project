@@ -304,69 +304,6 @@ bool AnimatedMeshApp::Update(float frame_time)
 					}
 				}
 			}
-
-			/*if (keyboard->IsKeyPressed(gef::Keyboard::KC_SPACE))
-			{
-				anim_manager_.SwitchAnimation(true);
-			}
-
-			if (keyboard->IsKeyPressed(gef::Keyboard::KC_Z))
-			{
-				if (anim_manager_.GetSkeleton()->GetBlendValue() < 1.0f)
-				{
-					anim_manager_.GetSkeleton()->SetBlendValue(0.1f);
-				}
-			}
-
-			if (keyboard->IsKeyPressed(gef::Keyboard::KC_X))
-			{
-				if (anim_manager_.GetSkeleton()->GetBlendValue() > 0.0f)
-				{
-					anim_manager_.GetSkeleton()->SetBlendValue(-0.1f);
-				}
-			}*/
-
-			//if (keyboard->IsKeyPressed(gef::Keyboard::KC_Z))
-			//{
-			//	if (speed_ >= 1.0f && speed_ <= 1.1f)
-			//	{
-			//		node_manager_.linear_blend_nodes_[0]->SetInput(0, node_manager_.clip_nodes_[1]);
-			//		node_manager_.linear_blend_nodes_[0]->SetInput(1, node_manager_.clip_nodes_[2]);
-			//		//node_manager_.clip_nodes_[1]->animTime = node_manager_.clip_nodes_[0]->animTime;
-
-			//		isRunning = true;
-			//	}
-
-			//	if (speed_ >= run_speed_)
-			//	{
-			//		speed_ = run_speed_;
-			//	}
-			//	else
-			//	{
-			//		speed_ = speed_ + 0.1f;
-			//	}
-			//}
-
-			/*if (keyboard->IsKeyPressed(gef::Keyboard::KC_X))
-			{
-				if (speed_ <= 1.1f && speed_ >= 1.0f)
-				{
-					node_manager_.linear_blend_nodes_[0]->SetInput(0, node_manager_.clip_nodes_[0]);
-					node_manager_.linear_blend_nodes_[0]->SetInput(1, node_manager_.clip_nodes_[1]);
-					node_manager_.clip_nodes_[1]->playbackSpeed = 1.0f;
-					isRunning = false;
-				}
-
-				if (speed_ <= 0.0f)
-				{
-					speed_ = 0.0f;
-				}
-				else
-				{
-					speed_ = speed_ - 0.1f;
-				}
-			}*/
-
 		}
 	}
 
@@ -375,39 +312,12 @@ bool AnimatedMeshApp::Update(float frame_time)
 		// update the pose in the anim player from the animation
 		anim_player_.Update(frame_time, player_->bind_pose());
 
-		// update the bone matrices that are used for rendering the character
-		// from the newly updated pose in the anim player
-		//player_->UpdateBoneMatrices(anim_player_.pose());
-		//output_node_.Update(frame_time);
-		//node_manager_.linear_blend_nodes_[0]->blendValue = speed_;
-
-		/*if (isRunning)
-		{
-			node_manager_.linear_blend_nodes_[0]->blendValue = (node_manager_.linear_blend_nodes_[0]->blendValue - 1.f) / (3.f - 1.f);
-			float walk_speed_mod = (walk_speed_max - walk_speed_min) * node_manager_.linear_blend_nodes_[0]->blendValue;
-			float run_speed_mod = (run_speed_max - run_speed_min) * node_manager_.linear_blend_nodes_[0]->blendValue;
-			node_manager_.clip_nodes_[1]->playbackSpeed = (walk_speed_min + walk_speed_mod);
-			node_manager_.clip_nodes_[2]->playbackSpeed = (run_speed_min + run_speed_mod);
-		}*/
-
 		node_manager_.output_nodes_[0]->Update(frame_time);
 
-		//USE THIS VALUES NEED TO BE LARGE HOWEVER
-		//node_manager_.output_nodes_[0]->output.local_pose()[16].set_translation(gef::Vector4(0.0f, 50.0f, 8.0f));
-		//node_manager_.output_nodes_[0]->output.CalculateGlobalPose();
-
-		/*modifyValues.Scale(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].scale());
-		modifyValues.Rotation(modifyRotation);
-		modifyValues.SetTranslation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].translation());*/
-
-		//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_scale(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].scale() - gef::Vector4(modifyRotation.x, modifyRotation.x, modifyRotation.x));
-		//modifyRotation.Normalise();
-
 		modifyValues.SetIdentity();
-		//modifyValues.Scale(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].scale());
 		modifyValues.Scale(gef::Vector4(1.0f, 1.0f, 1.0f));
 		gef::Quaternion temp = node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].rotation() + modifyRotation;
-		temp.Normalise();                                                                                                                        //FIX, NEEDS NORMALISED
+		temp.Normalise();
 		modifyValues.Rotation(temp);
 		modifyValues.SetTranslation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].translation() + modifyTranslation);
 
