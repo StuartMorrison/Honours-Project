@@ -21,7 +21,7 @@ public:
 	void ChangeEmotion(int input);
 	int GetEmotion();
 	std::string GetMap(int index) { return bone_name_number_.at(index); };
-	gef::Matrix44 ModifyBones(gef::Matrix44 originalMatrix, gef::Quaternion originalRotation, gef::Vector4 translation, gef::Vector4 rotation, gef::Vector4 scale);
-	gef::Matrix44 ModifyRotation(gef::Matrix44 originalMatrix, gef::Quaternion originalRotation, float scalarMultiplier);
+	gef::Matrix44 ModifyBones(gef::Matrix44 originalMatrix, gef::Quaternion originalRotation, gef::Vector4 translation, gef::Quaternion rotation);
+	gef::Matrix44 ModifyRotation(gef::Matrix44 originalMatrix, gef::Quaternion originalRotation, gef::Quaternion scalarValues);
 };
 

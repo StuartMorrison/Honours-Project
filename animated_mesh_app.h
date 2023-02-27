@@ -55,6 +55,10 @@ private:
 	void SetupCamera();
 	gef::Animation* LoadAnimation(const char* anim_scene_filename, const char* anim_name);
 
+	//EMOTION FUNCTIONS
+	void InitHappy();
+	void InitSad();
+
 	gef::SpriteRenderer* sprite_renderer_;
 	gef::Renderer3D* renderer_3d_;
 	gef::InputManager* input_manager_;

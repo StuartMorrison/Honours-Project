@@ -237,12 +237,12 @@ bool AnimatedMeshApp::Update(float frame_time)
 				{
 					if (keyboard->IsKeyDown(gef::Keyboard::KC_EQUALS))
 					{
-						modifyRotation.x += 0.1;
+						modifyRotation.x += 0.01;
 					}
 
 					if (keyboard->IsKeyDown(gef::Keyboard::KC_MINUS))
 					{
-						modifyRotation.x -= 0.1;
+						modifyRotation.x -= 0.01;
 					}
 				}
 			}
@@ -266,12 +266,12 @@ bool AnimatedMeshApp::Update(float frame_time)
 				{
 					if (keyboard->IsKeyDown(gef::Keyboard::KC_EQUALS))
 					{
-						modifyRotation.y += 0.1;
+						modifyRotation.y += 0.01;
 					}
 
 					if (keyboard->IsKeyDown(gef::Keyboard::KC_MINUS))
 					{
-						modifyRotation.y -= 0.1;
+						modifyRotation.y -= 0.01;
 					}
 				}
 			}
@@ -295,14 +295,43 @@ bool AnimatedMeshApp::Update(float frame_time)
 				{
 					if (keyboard->IsKeyDown(gef::Keyboard::KC_EQUALS))
 					{
-						modifyRotation.z =+ 0.1;
+						modifyRotation.z =+ 0.01;
 					}
 
 					if (keyboard->IsKeyDown(gef::Keyboard::KC_MINUS))
 					{
-						modifyRotation.z -= 0.1;
+						modifyRotation.z -= 0.01;
 					}
 				}
+			}
+
+			if (keyboard->IsKeyDown(gef::Keyboard::KC_NUMPAD0))
+			{
+				bone_modifier_.ChangeEmotion(0);
+
+				node_manager_.clip_nodes_[0]->playbackSpeed = 1.0f;
+			}
+
+			if (keyboard->IsKeyDown(gef::Keyboard::KC_NUMPAD1))
+			{
+				bone_modifier_.ChangeEmotion(1);
+			}
+
+			if (keyboard->IsKeyDown(gef::Keyboard::KC_NUMPAD2))
+			{
+				bone_modifier_.ChangeEmotion(2);
+
+				node_manager_.clip_nodes_[0]->playbackSpeed = 0.6f;
+			}
+
+			if (keyboard->IsKeyDown(gef::Keyboard::KC_NUMPAD3))
+			{
+				bone_modifier_.ChangeEmotion(3);
+			}
+
+			if (keyboard->IsKeyDown(gef::Keyboard::KC_NUMPAD4))
+			{
+				bone_modifier_.ChangeEmotion(4);
 			}
 		}
 	}
@@ -314,17 +343,36 @@ bool AnimatedMeshApp::Update(float frame_time)
 
 		node_manager_.output_nodes_[0]->Update(frame_time);
 
-		modifyValues.SetIdentity();
+		/*modifyValues.SetIdentity();
 		modifyValues.Scale(gef::Vector4(1.0f, 1.0f, 1.0f));
 		gef::Quaternion temp = node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].rotation() + modifyRotation;
 		temp.Normalise();
 		modifyValues.Rotation(temp);
-		modifyValues.SetTranslation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].translation() + modifyTranslation);
+		modifyValues.SetTranslation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].translation() + modifyTranslation);*/
+
+		if (bone_modifier_.GetEmotion() == 0)
+		{
+			node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1] = bone_modifier_.ModifyBones(
+				node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].GetMatrix(),
+				node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].rotation(),
+				modifyTranslation,
+				modifyRotation);
+		}
+
+		if (bone_modifier_.GetEmotion() == 1)
+		{
+			InitHappy();
+		}
+
+		if (bone_modifier_.GetEmotion() == 2)
+		{
+			InitSad();
+		}
 
 		//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_rotation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].rotation() + modifyRotation);
 		//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_translation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].translation() + modifyTranslation);
 
-		node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1] = modifyValues;
+		//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1] = modifyValues;
 
 		node_manager_.output_nodes_[0]->output.CalculateGlobalPose();
 
@@ -396,6 +444,10 @@ void AnimatedMeshApp::DrawHUD()
 		// display frame rate
 		font_->RenderText(sprite_renderer_, gef::Vector4(850.0f, 510.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT, "FPS: %.1f", fps_);
 		font_->RenderText(sprite_renderer_, gef::Vector4(0.0f, 510.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT, bone_modifier_.GetMap(bone_index_).c_str());
+
+		font_->RenderText(sprite_renderer_, gef::Vector4(200.0f, 410.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT,  std::to_string(modifyRotation.x).c_str());
+		font_->RenderText(sprite_renderer_, gef::Vector4(200.0f, 460.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT,  std::to_string(modifyRotation.y).c_str());
+		font_->RenderText(sprite_renderer_, gef::Vector4(200.0f, 510.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT,  std::to_string(modifyRotation.z).c_str());
 	}
 }
 
@@ -471,4 +523,205 @@ gef::Animation* AnimatedMeshApp::LoadAnimation(const char* anim_scene_filename, 
 	}
 
 	return anim;
+}
+
+void AnimatedMeshApp::InitHappy()
+{
+
+}
+
+void AnimatedMeshApp::InitSad()
+{
+	modifyTranslation = gef::Vector4(0.0f, 0.0f, 0.0f);
+	modifyRotation = gef::Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+
+	//body + head
+	//no hips as that is essentially the root
+
+	//torso
+	modifyRotation.x = 0.15f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[4] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[4].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[4].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//lower chest
+	modifyRotation.x = 0.2f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[11] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[11].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[11].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//upper chest
+	modifyRotation.x = 0.05f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[12] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[12].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[12].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//neck
+	modifyRotation.x = 0.4f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[14] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[14].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[14].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//head
+	modifyRotation.x = 0.01f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[34] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[34].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[34].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//arms
+	//left shoulder
+	modifyRotation.y = -0.3f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[13] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[13].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[13].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.y = 0.0f;
+
+	//right shoulder
+	modifyRotation.y = 0.3f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[15] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[15].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[15].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+
+	modifyRotation.y = 0.0f;
+
+	//left upper arm
+	modifyRotation.x = -0.5f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[16] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[16].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[16].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//right upper arm
+	modifyRotation.x = -1.0f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[35] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[35].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[35].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//left shoulder rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[13] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[13].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[13].rotation(),
+		gef::Quaternion(0.6f, 1.0f, 0.6f, 1.0f));
+
+	//right shoulder rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[15] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[15].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[15].rotation(),
+		gef::Quaternion(0.6f, 1.0f, 0.6f, 1.0f));
+
+	//left upper arm rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[16] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[16].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[16].rotation(),
+		gef::Quaternion(2.2f, 1.0f, 1.2f, 1.0f));
+
+	//left lower arm rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[17] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[17].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[17].rotation(),
+		gef::Quaternion(0.1f, 0.2f, 0.1f, 1.0f));
+
+	//right upper arm rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[35] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[35].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[35].rotation(),
+		gef::Quaternion(0.7f, 0.0f, 1.1f, 1.0f));
+
+	//right lower arm rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[36] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[36].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[36].rotation(),
+		gef::Quaternion(0.3f, 0.2f, 0.3f, 1.0f));
+
+	//left hand rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[18] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[18].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[18].rotation(),
+		gef::Quaternion(0.1f, 0.1f, 0.1f, 1.0f));
+
+	//right hand rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[37] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[37].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[37].rotation(),
+		gef::Quaternion(0.1f, 0.1f, 0.1f, 1.0f));
+
+	//legs
+	//left upper leg rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[2] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[2].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[2].rotation(),
+		gef::Quaternion(0.9f, 0.9f, 0.9f, 1.0f));
+
+	//left lower leg rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[5] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[5].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[5].rotation(),
+		gef::Quaternion(0.5f, 1.0f, 0.5f, 1.0f));
+
+	//left heel rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[6] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[6].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[6].rotation(),
+		gef::Quaternion(0.3f, 1.0f, 0.3f, 1.0f));
+
+	//right upper leg rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[3] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[3].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[3].rotation(),
+		gef::Quaternion(0.9f, 0.9f, 0.9f, 1.0f));
+
+	//right lower leg rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[8] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[8].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[8].rotation(),
+		gef::Quaternion(0.5f, 1.0f, 0.5f, 1.0f));
+
+	//right heel rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[9] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[9].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[9].rotation(),
+		gef::Quaternion(0.3f, 1.0f, 0.3f, 1.0f));
+
 }

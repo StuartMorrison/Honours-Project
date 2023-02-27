@@ -90,7 +90,7 @@ int BoneModifier::GetEmotion()
 	return emotion_number_;
 }
 
-gef::Matrix44 BoneModifier::ModifyBones(gef::Matrix44 originalValues, gef::Quaternion originalRotation, gef::Vector4 translation, gef::Vector4 rotation, gef::Vector4 scale)
+gef::Matrix44 BoneModifier::ModifyBones(gef::Matrix44 originalValues, gef::Quaternion originalRotation, gef::Vector4 translation, gef::Quaternion rotation)
 {
 	/*int index = bone_index_ + 1;
 	gef::Matrix44 originalValues = player_pointer_->bone_matrices()[index];
@@ -108,7 +108,7 @@ gef::Matrix44 BoneModifier::ModifyBones(gef::Matrix44 originalValues, gef::Quate
 	gef::Quaternion modifyRotation;
 	modifyValues.SetIdentity();
 	modifyValues.Scale(originalValues.GetScale());
-	modifyRotation = originalRotation + gef::Quaternion(rotation.x(), rotation.y(), rotation.z(), 0.0f);
+	modifyRotation = originalRotation + rotation;
 	modifyRotation.Normalise();
 	modifyValues.Rotation(modifyRotation);
 	modifyValues.SetTranslation(originalValues.GetTranslation() + translation);
@@ -117,14 +117,17 @@ gef::Matrix44 BoneModifier::ModifyBones(gef::Matrix44 originalValues, gef::Quate
 	
 }
 
-gef::Matrix44 BoneModifier::ModifyRotation(gef::Matrix44 originalMatrix, gef::Quaternion originalRotation, float scalarMultiplier)
+gef::Matrix44 BoneModifier::ModifyRotation(gef::Matrix44 originalMatrix, gef::Quaternion originalRotation, gef::Quaternion scalarValues)
 {
 	gef::Matrix44 modifiedMatrix;
 	gef::Quaternion modifiedRotation;
 
 	modifiedMatrix.SetIdentity();
 	modifiedMatrix.Scale(originalMatrix.GetScale());
-	modifiedRotation = originalRotation * scalarMultiplier;
+	modifiedRotation.w = originalRotation.w;
+	modifiedRotation.x = originalRotation.x * scalarValues.x;
+	modifiedRotation.y = originalRotation.y * scalarValues.y;
+	modifiedRotation.z = originalRotation.z * scalarValues.z;
 	modifiedRotation.Normalise();
 	modifiedMatrix.Rotation(modifiedRotation);
 	modifiedMatrix.SetTranslation(originalMatrix.GetTranslation());
