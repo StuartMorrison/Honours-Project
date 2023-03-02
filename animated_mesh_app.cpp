@@ -295,7 +295,7 @@ bool AnimatedMeshApp::Update(float frame_time)
 				{
 					if (keyboard->IsKeyDown(gef::Keyboard::KC_EQUALS))
 					{
-						modifyRotation.z =+ 0.01;
+						modifyRotation.z += 0.01;
 					}
 
 					if (keyboard->IsKeyDown(gef::Keyboard::KC_MINUS))
@@ -315,6 +315,8 @@ bool AnimatedMeshApp::Update(float frame_time)
 			if (keyboard->IsKeyDown(gef::Keyboard::KC_NUMPAD1))
 			{
 				bone_modifier_.ChangeEmotion(1);
+
+				node_manager_.clip_nodes_[0]->playbackSpeed = 1.2f;
 			}
 
 			if (keyboard->IsKeyDown(gef::Keyboard::KC_NUMPAD2))
@@ -527,7 +529,125 @@ gef::Animation* AnimatedMeshApp::LoadAnimation(const char* anim_scene_filename, 
 
 void AnimatedMeshApp::InitHappy()
 {
+	modifyTranslation = gef::Vector4(0.0f, 0.0f, 0.0f);
+	modifyRotation = gef::Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
 
+	//body + head
+	//no hips as that is essentially the root
+
+	//torso
+	modifyRotation.x = 0.1f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[4] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[4].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[4].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//lower chest
+	modifyRotation.x = -0.10f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[11] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[11].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[11].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//upper chest
+	modifyRotation.x = -0.10f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[12] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[12].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[12].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//neck
+	modifyRotation.x = -0.03f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[14] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[14].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[14].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//head
+	modifyRotation.x = 0.10f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[34] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[34].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[34].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//arms
+	//left shoulder
+	modifyRotation.y = 0.10f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[13] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[13].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[13].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//right shoulder
+	modifyRotation.x = -0.10f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[15] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[15].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[15].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.x = 0.0f;
+
+	//left lower arm
+	modifyRotation.y = -0.40f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[17] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[17].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[17].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.y = 0.0f;
+
+	//right lower arm
+	modifyRotation.y = 0.40f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[36] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[36].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[36].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.y = 0.0f;
+
+	//arms rotation modifiers
+	
+	//left upper arm rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[16] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[16].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[16].rotation(),
+		gef::Quaternion(1.5f, 1.0f, 1.0f, 1.0f));
+	 
+	//right upper arm rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[35] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[35].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[35].rotation(),
+		gef::Quaternion(1.5f, 1.0f, 1.0f, 1.0f));
 }
 
 void AnimatedMeshApp::InitSad()
