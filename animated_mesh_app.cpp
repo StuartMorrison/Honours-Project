@@ -316,7 +316,7 @@ bool AnimatedMeshApp::Update(float frame_time)
 			{
 				bone_modifier_.ChangeEmotion(1);
 
-				node_manager_.clip_nodes_[0]->playbackSpeed = 1.2f;
+				node_manager_.clip_nodes_[0]->playbackSpeed = 1.0f;
 			}
 
 			if (keyboard->IsKeyDown(gef::Keyboard::KC_NUMPAD2))
@@ -635,8 +635,14 @@ void AnimatedMeshApp::InitHappy()
 
 	modifyRotation.y = 0.0f;
 
+	//body rotation modifiers
+	//hips rotation change
+	node_manager_.output_nodes_[0]->output.local_pose()[1] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[1].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[1].rotation(),
+		gef::Quaternion(1.1f, 1.0f, 1.1f, 1.0f));
+
 	//arms rotation modifiers
-	
 	//left upper arm rotation change
 	node_manager_.output_nodes_[0]->output.local_pose()[16] = bone_modifier_.ModifyRotation(
 		node_manager_.output_nodes_[0]->output.local_pose()[16].GetMatrix(),
@@ -648,6 +654,44 @@ void AnimatedMeshApp::InitHappy()
 		node_manager_.output_nodes_[0]->output.local_pose()[35].GetMatrix(),
 		node_manager_.output_nodes_[0]->output.local_pose()[35].rotation(),
 		gef::Quaternion(1.5f, 1.0f, 1.0f, 1.0f));
+
+	//legs
+	//leg rotation modifiers
+	//left upper leg
+	node_manager_.output_nodes_[0]->output.local_pose()[2] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[2].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[2].rotation(),
+		gef::Quaternion(1.2f, 1.0f, 1.0f, 1.0f));
+
+	//right upper leg
+	node_manager_.output_nodes_[0]->output.local_pose()[3] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[3].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[3].rotation(),
+		gef::Quaternion(1.2f, 1.0f, 1.0f, 1.0f));
+
+	//left lower leg
+	node_manager_.output_nodes_[0]->output.local_pose()[5] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[5].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[5].rotation(),
+		gef::Quaternion(1.2f, 1.0f, 1.0f, 1.0f));
+
+	//right lower leg
+	node_manager_.output_nodes_[0]->output.local_pose()[8] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[8].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[8].rotation(),
+		gef::Quaternion(1.2f, 1.0f, 1.0f, 1.0f));
+
+	//left heel
+	node_manager_.output_nodes_[0]->output.local_pose()[6] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[6].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[6].rotation(),
+		gef::Quaternion(0.8f, 1.0f, 1.0f, 1.0f));
+
+	//right heel
+	node_manager_.output_nodes_[0]->output.local_pose()[9] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[9].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[9].rotation(),
+		gef::Quaternion(0.8f, 1.0f, 1.0f, 1.0f));
 }
 
 void AnimatedMeshApp::InitSad()
