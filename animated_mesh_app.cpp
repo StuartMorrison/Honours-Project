@@ -316,7 +316,7 @@ bool AnimatedMeshApp::Update(float frame_time)
 			{
 				bone_modifier_.ChangeEmotion(1);
 
-				node_manager_.clip_nodes_[0]->playbackSpeed = 1.0f;
+				node_manager_.clip_nodes_[0]->playbackSpeed = 1.15f;
 			}
 
 			if (keyboard->IsKeyDown(gef::Keyboard::KC_NUMPAD2))
@@ -647,13 +647,203 @@ void AnimatedMeshApp::InitHappy()
 	node_manager_.output_nodes_[0]->output.local_pose()[16] = bone_modifier_.ModifyRotation(
 		node_manager_.output_nodes_[0]->output.local_pose()[16].GetMatrix(),
 		node_manager_.output_nodes_[0]->output.local_pose()[16].rotation(),
-		gef::Quaternion(1.5f, 1.0f, 1.0f, 1.0f));
+		gef::Quaternion(1.8f, 1.0f, 1.0f, 1.0f));
 	 
 	//right upper arm rotation change
 	node_manager_.output_nodes_[0]->output.local_pose()[35] = bone_modifier_.ModifyRotation(
 		node_manager_.output_nodes_[0]->output.local_pose()[35].GetMatrix(),
 		node_manager_.output_nodes_[0]->output.local_pose()[35].rotation(),
-		gef::Quaternion(1.5f, 1.0f, 1.0f, 1.0f));
+		gef::Quaternion(1.8f, 1.0f, 1.0f, 1.0f));
+
+	//hands
+	//left index finger base
+	modifyRotation.z = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[19] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[19].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[19].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//left index finger joint
+	modifyRotation.z = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[24] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[24].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[24].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//left middle finger base
+	modifyRotation.z = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[20] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[20].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[20].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//left middle finger koint
+	modifyRotation.z = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[26] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[26].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[26].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//left ring finger base
+	modifyRotation.z = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[22] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[22].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[22].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//left ring finger joint
+	modifyRotation.z = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[30] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[30].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[30].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//left pinkie finger base
+	modifyRotation.z = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[21] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[21].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[21].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//left pinkie finger joint
+	modifyRotation.z = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[28] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[28].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[28].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//right index finger base
+	modifyRotation.z = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[38] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[38].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[38].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//right index finger joint
+	modifyRotation.z = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[43] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[43].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[43].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//right middle finger base
+	modifyRotation.z = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[39] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[39].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[39].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//right middle finger koint
+	modifyRotation.z = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[45] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[45].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[45].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//right ring finger base
+	modifyRotation.z = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[41] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[41].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[41].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//right ring finger joint
+	modifyRotation.z = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[49] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[49].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[49].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//right pinkie finger base
+	modifyRotation.z = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[40] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[40].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[40].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//right pinkie finger joint
+	modifyRotation.z = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[47] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[47].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[47].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//hand rotaion modifiers
+	////left hand
+	node_manager_.output_nodes_[0]->output.local_pose()[18] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[18].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[18].rotation(),
+		gef::Quaternion(0.5f, 0.5f, 0.5f, 1.0f));
+
+	////right hand
+	node_manager_.output_nodes_[0]->output.local_pose()[37] = bone_modifier_.ModifyRotation(
+		node_manager_.output_nodes_[0]->output.local_pose()[37].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[37].rotation(),
+		gef::Quaternion(0.5f, 0.5f, 0.5f, 1.0f));
 
 	//legs
 	//leg rotation modifiers
