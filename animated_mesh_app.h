@@ -59,6 +59,8 @@ private:
 	void InitHappy();
 	void InitSad();
 
+	void InitFear();
+
 	gef::SpriteRenderer* sprite_renderer_;
 	gef::Renderer3D* renderer_3d_;
 	gef::InputManager* input_manager_;
