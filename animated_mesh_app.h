@@ -58,7 +58,7 @@ private:
 	//EMOTION FUNCTIONS
 	void InitHappy();
 	void InitSad();
-
+	void InitAnger();
 	void InitFear();
 
 	gef::SpriteRenderer* sprite_renderer_;

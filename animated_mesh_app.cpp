@@ -329,6 +329,8 @@ bool AnimatedMeshApp::Update(float frame_time)
 			if (keyboard->IsKeyDown(gef::Keyboard::KC_NUMPAD3))
 			{
 				bone_modifier_.ChangeEmotion(3);
+
+				node_manager_.clip_nodes_[0]->playbackSpeed = 1.1f;
 			}
 
 			if (keyboard->IsKeyDown(gef::Keyboard::KC_NUMPAD4))
@@ -371,6 +373,11 @@ bool AnimatedMeshApp::Update(float frame_time)
 		if (bone_modifier_.GetEmotion() == 2)
 		{
 			InitSad();
+		}
+
+		if (bone_modifier_.GetEmotion() == 3)
+		{
+			InitAnger();
 		}
 
 		if (bone_modifier_.GetEmotion() == 4)
@@ -1085,6 +1092,12 @@ void AnimatedMeshApp::InitSad()
 		node_manager_.output_nodes_[0]->output.local_pose()[9].rotation(),
 		gef::Quaternion(0.3f, 1.0f, 0.3f, 1.0f));
 
+}
+
+void AnimatedMeshApp::InitAnger()
+{
+	modifyTranslation = gef::Vector4(0.0f, 0.0f, 0.0f);
+	modifyRotation = gef::Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
 void AnimatedMeshApp::InitFear()
