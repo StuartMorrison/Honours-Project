@@ -339,6 +339,13 @@ bool AnimatedMeshApp::Update(float frame_time)
 
 				node_manager_.clip_nodes_[0]->playbackSpeed = 0.7f;
 			}
+
+			if (keyboard->IsKeyDown(gef::Keyboard::KC_NUMPAD9))
+			{
+				showCaseMode = true;
+
+				timeCounter = 0.0f;
+			}
 		}
 	}
 
@@ -383,6 +390,37 @@ bool AnimatedMeshApp::Update(float frame_time)
 		if (bone_modifier_.GetEmotion() == 4)
 		{
 			InitFear();
+		}
+
+		if (showCaseMode)
+		{
+			timeCounter += frame_time;
+
+			if (timeCounter > 5.0f)
+			{
+				timeCounter = 0.0f;
+				showCaseIteration++;
+
+				switch (showCaseIteration)
+				{
+				case 0:
+					cameraPosition.set_x(-cameraPosition.x());
+					break;
+				case 1:
+					cameraPosition.set_z(-cameraPosition.z());
+					break;
+				case 2:
+					cameraPosition.set_x(-cameraPosition.x());
+					break;
+				case 3:
+					showCaseIteration = -1;
+					cameraPosition.set_z(-cameraPosition.z());
+					break;
+				}
+
+				SetupCamera();
+
+			}
 		}
 
 		//node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].set_rotation(node_manager_.output_nodes_[0]->output.local_pose()[bone_index_ + 1].rotation() + modifyRotation);
@@ -481,7 +519,7 @@ void AnimatedMeshApp::SetupLights()
 void AnimatedMeshApp::SetupCamera()
 {
 	// initialise the camera settings
-	camera_eye_ = gef::Vector4(-4.0f, 1.0f, 4.0f);
+	camera_eye_ = cameraPosition;
 	camera_lookat_ = gef::Vector4(0.0f, 1.0f, 0.0f);
 	camera_up_ = gef::Vector4(0.0f, 1.0f, 0.0f);
 	camera_fov_ = gef::DegToRad(45.0f);

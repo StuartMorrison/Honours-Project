@@ -89,7 +89,7 @@ private:
 	PrimitiveRenderer* primitive_renderer_;
 
 	gef::Mesh* floor_mesh_;
-	gef::MeshInstance floor_gfx_; //initialize later
+	gef::MeshInstance floor_gfx_;
 
 	AnimationManager anim_manager_;
 	float speed_ = 0.0f;
@@ -103,6 +103,11 @@ private:
 	//DEMO
 	BoneModifier bone_modifier_;
 	int bone_index_;
+
+	bool showCaseMode = false;
+	float timeCounter = 0.0f;
+	int showCaseIteration = -1;
+	gef::Vector4 cameraPosition = gef::Vector4(-3.0f, 2.0f, 3.0f);
 
 	bool translation_selected_;
 	bool rotation_selected_;
