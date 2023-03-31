@@ -496,12 +496,12 @@ void AnimatedMeshApp::DrawHUD()
 	if(font_)
 	{
 		// display frame rate
-		font_->RenderText(sprite_renderer_, gef::Vector4(850.0f, 510.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT, "FPS: %.1f", fps_);
+		/*font_->RenderText(sprite_renderer_, gef::Vector4(850.0f, 510.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT, "FPS: %.1f", fps_);
 		font_->RenderText(sprite_renderer_, gef::Vector4(0.0f, 510.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT, bone_modifier_.GetMap(bone_index_).c_str());
 
 		font_->RenderText(sprite_renderer_, gef::Vector4(200.0f, 410.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT,  std::to_string(modifyRotation.x).c_str());
 		font_->RenderText(sprite_renderer_, gef::Vector4(200.0f, 460.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT,  std::to_string(modifyRotation.y).c_str());
-		font_->RenderText(sprite_renderer_, gef::Vector4(200.0f, 510.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT,  std::to_string(modifyRotation.z).c_str());
+		font_->RenderText(sprite_renderer_, gef::Vector4(200.0f, 510.0f, -0.9f), 1.0f, 0xffffffff, gef::TJ_LEFT,  std::to_string(modifyRotation.z).c_str());*/
 	}
 }
 
@@ -774,6 +774,28 @@ void AnimatedMeshApp::InitHappy()
 
 	modifyRotation.z = 0.0f;
 
+	//left thumb finger joint
+	modifyRotation.z = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[32] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[32].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[32].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//left thumb finger tip
+	modifyRotation.y = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[33] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[33].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[33].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.y = 0.0f;
+
 	//left pinkie finger base
 	modifyRotation.z = -0.70f;
 
@@ -829,7 +851,7 @@ void AnimatedMeshApp::InitHappy()
 
 	modifyRotation.z = 0.0f;
 
-	//right middle finger koint
+	//right middle finger joint
 	modifyRotation.z = 0.70f;
 
 	node_manager_.output_nodes_[0]->output.local_pose()[45] = bone_modifier_.ModifyBones(
@@ -861,6 +883,28 @@ void AnimatedMeshApp::InitHappy()
 		modifyRotation);
 
 	modifyRotation.z = 0.0f;
+
+	//right thumb finger joint
+	modifyRotation.z = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[51] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[51].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[51].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//right thumb finger tip
+	modifyRotation.y = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[52] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[52].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[52].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.y = 0.0f;
 
 	//right pinkie finger base
 	modifyRotation.z = 0.70f;
@@ -1347,6 +1391,28 @@ void AnimatedMeshApp::InitAnger()
 
 	modifyRotation.z = 0.0f;
 
+	//left thumb finger joint
+	modifyRotation.z = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[32] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[32].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[32].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//left thumb finger tip
+	modifyRotation.y = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[33] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[33].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[33].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.y = 0.0f;
+
 	//left pinkie finger base
 	modifyRotation.z = -0.70f;
 
@@ -1434,6 +1500,28 @@ void AnimatedMeshApp::InitAnger()
 		modifyRotation);
 
 	modifyRotation.z = 0.0f;
+
+	//right thumb finger joint
+	modifyRotation.z = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[51] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[51].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[51].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//right thumb finger tip
+	modifyRotation.y = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[52] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[52].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[52].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.y = 0.0f;
 
 	//right pinkie finger base
 	modifyRotation.z = 0.70f;
@@ -1714,6 +1802,28 @@ void AnimatedMeshApp::InitFear()
 
 	modifyRotation.z = 0.0f;
 
+	//left thumb finger joint
+	modifyRotation.z = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[32] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[32].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[32].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//left thumb finger tip
+	modifyRotation.y = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[33] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[33].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[33].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.y = 0.0f;
+
 	//left pinkie finger base
 	modifyRotation.z = -0.70f;
 
@@ -1801,6 +1911,28 @@ void AnimatedMeshApp::InitFear()
 		modifyRotation);
 
 	modifyRotation.z = 0.0f;
+
+	//right thumb finger joint
+	modifyRotation.z = 0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[51] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[51].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[51].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.z = 0.0f;
+
+	//right thumb finger tip
+	modifyRotation.y = -0.70f;
+
+	node_manager_.output_nodes_[0]->output.local_pose()[52] = bone_modifier_.ModifyBones(
+		node_manager_.output_nodes_[0]->output.local_pose()[52].GetMatrix(),
+		node_manager_.output_nodes_[0]->output.local_pose()[52].rotation(),
+		modifyTranslation,
+		modifyRotation);
+
+	modifyRotation.y = 0.0f;
 
 	//right pinkie finger base
 	modifyRotation.z = 0.70f;
