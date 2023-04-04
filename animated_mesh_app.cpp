@@ -1069,6 +1069,8 @@ void AnimatedMeshApp::InitSad()
 
 	//left upper arm
 	modifyRotation.x = -0.5f;
+	modifyRotation.y = 0.2f;
+	modifyRotation.z = 0.2f;
 
 	node_manager_.output_nodes_[0]->output.local_pose()[16] = bone_modifier_.ModifyBones(
 		node_manager_.output_nodes_[0]->output.local_pose()[16].GetMatrix(),
@@ -1077,6 +1079,8 @@ void AnimatedMeshApp::InitSad()
 		modifyRotation);
 
 	modifyRotation.x = 0.0f;
+	modifyRotation.y = 0.0f;
+	modifyRotation.z = 0.0f;
 
 	//right upper arm
 	modifyRotation.x = -1.0f;
@@ -1105,7 +1109,7 @@ void AnimatedMeshApp::InitSad()
 	node_manager_.output_nodes_[0]->output.local_pose()[16] = bone_modifier_.ModifyRotation(
 		node_manager_.output_nodes_[0]->output.local_pose()[16].GetMatrix(),
 		node_manager_.output_nodes_[0]->output.local_pose()[16].rotation(),
-		gef::Quaternion(2.2f, 1.0f, 1.2f, 1.0f));
+		gef::Quaternion(0.7f, 0.0f, 1.1f, 1.0f));
 
 	//left lower arm rotation change
 	node_manager_.output_nodes_[0]->output.local_pose()[17] = bone_modifier_.ModifyRotation(
